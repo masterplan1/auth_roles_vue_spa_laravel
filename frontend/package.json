@@ -8,6 +8,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@heroicons/vue": "^2.0.17",
     "axios": "^1.4.0",
     "pinia": "^2.0.35",
     "vue": "^3.2.47",
@@ -15,6 +16,9 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.2.1",
+    "autoprefixer": "^10.4.14",
+    "postcss": "^8.4.23",
+    "tailwindcss": "^3.3.2",
     "vite": "^4.3.4"
   }
 }
