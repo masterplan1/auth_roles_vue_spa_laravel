@@ -8,12 +8,16 @@ use App\Http\Resources\UserListResource;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
     public function index()
     {
-        $users = User::all();
+        // if(!Auth::user()->can('delte articles')){
+        //     abort(403);
+        // }
+        $users = User::where('name', '!=', 'superuser')->get();
         return UserListResource::collection($users);
     }
 
@@ -33,8 +37,10 @@ class UserController extends Controller
         unset($validated['rolse']);
 
         if(!empty($roles)){
+            if(($key = array_search('superuser', $roles)) !== false) unset($roles[$key]);
             $user->syncRoles($roles);
-        } else {
+        }  
+        if(empty($roles)){
             $user->assignRole(Roles::Guest->value);
         }
 
@@ -47,5 +53,10 @@ class UserController extends Controller
     {
         $user->delete();
         return response('', 204);
+    }
+
+    public function getUser()
+    {
+        return Auth::user();
     }
 }

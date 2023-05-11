@@ -21,7 +21,7 @@ class UserResource extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'roles' => $this->getRoleNames(),
-            'allRoles' => Role::select(['name'])->get()
+            'allRoles' => Role::select(['name'])->where('name', '!=', 'superuser')->get()
         ];
     }
 }

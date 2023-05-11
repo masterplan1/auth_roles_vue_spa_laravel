@@ -25,9 +25,10 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::apiResource('posts', PostController::class);
 
     Route::get('/users', [UserController::class, 'index']);
-    Route::get('/users/{user}', [UserController::class, 'show']);
-    Route::put('/users/{user}', [UserController::class, 'update']);
+    Route::get('/users/{user}', [UserController::class, 'show'])->middleware('can:edit articles');
+    Route::put('/users/{user}', [UserController::class, 'update'])->middleware('can:edit articles');
     Route::delete('/users/{user}', [UserController::class, 'remove']);
+    Route::get('/user', [UserController::class, 'getUser']);
 
     Route::post('/logout', [AuthController::class, 'logout']);
 });

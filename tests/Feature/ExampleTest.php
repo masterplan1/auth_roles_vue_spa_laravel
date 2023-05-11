@@ -16,4 +16,13 @@ class ExampleTest extends TestCase
 
         $response->assertStatus(200);
     }
+
+    public function test_the_application_contain_symphony(): void
+    {
+        $response = $this->get('/');
+
+        $response->assertSee('Syphony');
+
+        $response->assertStatus(200);
+    }
 }

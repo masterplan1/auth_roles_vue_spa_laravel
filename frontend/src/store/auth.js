@@ -36,9 +36,17 @@ export const useAuthStore = defineStore('auth', () => {
     return axiosClient.post('/logout')
     .then((res) => {
       setToken(null)
+      user.value.data = {}
       return res
     })
   }
 
-  return { user, loading, login, logout }
+  function getUser(){
+    return axiosClient.get('/user')
+      .then(({data}) => {
+        user.value.data = data
+      })
+  }
+
+  return { user, loading, login, logout, getUser }
 })
