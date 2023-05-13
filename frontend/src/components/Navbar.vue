@@ -21,6 +21,7 @@ const router = useRouter()
 function logout(){
   store.logout()
     .then(() => {
+      sessionStorage.removeItem('ROLES')
       router.push({name: 'login'})
     })
 }

@@ -1,7 +1,7 @@
 <template>
   <div>
     <h3 class="mb-6 text-2xl p-4">Posts</h3>
-    <p class="flex items-center justify-end gap-4 mb-6">
+    <p class="flex items-center justify-end gap-4 mb-6" v-if="can('create', 'articles')">
       <span>Create new Post</span> 
       <span class="bg-emerald-400 text-white p-1 rounded-lg cursor-pointer hover:scale-105">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -15,5 +15,7 @@
 
 <script setup>
 import PostTable from './PostTable.vue';
+import { useAbility } from '@casl/vue';
+const { can } = useAbility();
 
 </script>

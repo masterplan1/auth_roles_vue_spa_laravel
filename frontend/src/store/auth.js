@@ -15,7 +15,7 @@ export const useAuthStore = defineStore('auth', () => {
     .then(({data}) => {
       user.value.data =  data.user
       setToken(data.token)
-      return true
+      return data
     })
     .catch(({response}) => {
       console.log(response.data)

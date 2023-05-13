@@ -17,6 +17,7 @@
           <td class="border-b border-gray-400 p-2">
             <div class="flex gap-2">
               <router-link
+              v-if="can('view', 'articles')"
                 :to="{ name: 'app.post-view', params: { id: post.id } }"
                 class="bg-blue-400 text-white p-1 rounded-lg cursor-pointer hover:scale-105"
               >
@@ -41,6 +42,7 @@
                 </svg>
               </router-link>
               <span
+                v-if="can('edit', 'articles')"
                 class="bg-yellow-400 text-white p-1 rounded-lg cursor-pointer hover:scale-105"
               >
                 <router-link
@@ -63,6 +65,7 @@
                 </router-link>
               </span>
               <span
+                v-if="can('delete', 'articles')"
                 class="bg-red-400 text-white p-1 rounded-lg cursor-pointer hover:scale-105"
                 @click="removePost(post.id)"
               >
@@ -94,6 +97,9 @@ import { onMounted } from "vue";
 import axiosClient from "../../axios";
 import { usePostStore } from "../../store/post";
 import { storeToRefs } from "pinia";
+
+import { useAbility } from '@casl/vue';
+const { can } = useAbility();
 
 const store = usePostStore();
 const { posts } = storeToRefs(store);

@@ -28,7 +28,8 @@ class AuthController extends Controller
 
         return response()->json([
             'user' => $user,
-            'token' => $token
+            'token' => $token,
+            'scopes' => $this->prepareScopes($user->getAllPermissions())
         ]);
     }
 
@@ -38,5 +39,16 @@ class AuthController extends Controller
         $user = Auth::user();
         $user->currentAccessToken()->delete();
         return response('', 204);
+    }
+
+    private static function prepareScopes($scopes)
+    {
+        return $scopes->map(function ($item) {
+
+            $nameArr = explode(' ', $item->name);
+            if(count($nameArr) > 1) {
+                return ['action' => $nameArr[0], 'subject' => $nameArr[1]];
+            }
+        });
     }
 }

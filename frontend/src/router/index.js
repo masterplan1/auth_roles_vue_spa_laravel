@@ -10,6 +10,7 @@ import Login from '../views/Login.vue'
 import AppLayout from '../components/AppLayout.vue'
 import {useAuthStore} from '../store/auth'
 
+import ability from '../services/ability'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -40,6 +41,8 @@ const router = createRouter({
         {
           path: '/post/edit/:id',
           name: 'app.post-edit',
+
+          meta: {shouldAuth: true, accept: ability.can('edit', 'articles')},
           component: PostEdit
         },
         {
@@ -84,6 +87,8 @@ router.beforeEach((to, from, next) => {
     next({name: 'login'})
   } else if (to.meta.requiresGuest && store.user.token) {
     next({name: 'app.dashboard'})
+  } else if (to.meta.shouldAuth && !to.meta.accept) {
+    next(from)
   } else {
     next()
   }
