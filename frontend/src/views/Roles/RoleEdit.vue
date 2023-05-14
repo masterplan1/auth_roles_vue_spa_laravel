@@ -1,17 +1,14 @@
 <template>
   <div>
-    Role #{{ route.params.id }}
+   <h3 class="text-2xl font-semibold mb-10 text-center">Role <span class="italic">{{ role.name }}</span></h3>
     <form @submit.prevent="editUser">
-      <div class="flex gap-4 mb-4 items-center">
-        <h3>Name: </h3>
-        <p>{{ role.name }}</p>
-      </div>
-      <div class="mb-4 flex items-center gap-8">
-        <h3>Permissions</h3>
-        <div class="flex justify-start items-center gap-6">
-          <div v-for="permission in role.allPermissions" :key="permission.id" class="flex items-center">
-            <label class="mr-2 text-lg font-semibold">{{ permission.name }}</label>
+      <div class="mb-8 flex gap-8">
+        <h3 class="text-lg font-semibold">Permissions:</h3>
+        <div class="flex justify-start flex-wrap bg-white rounded px-4">
+          <div v-for="permission in role.allPermissions" :key="permission.id" class="flex mr-4 items-center">
+            <label class="mr-2 text-lg font-semibold" :for="permission.name">{{ permission.name }}</label>
             <input
+              :id="permission.name"
               type="checkbox"
               v-model="formPermissions"
               :value="permission.name"
@@ -19,10 +16,9 @@
           </div>
         </div>
       </div>
-      <button class="px-3 py-1 rounded text-white bg-emerald-400 font-semibold">
+      <button class="px-3 py-1 rounded text-white bg-emerald-400 font-semibold mx-auto block">
         Update
       </button>
-      {{ formPermissions}}
     </form>
   </div>
 </template>

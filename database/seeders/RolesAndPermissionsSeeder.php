@@ -20,12 +20,24 @@ class RolesAndPermissionsSeeder extends Seeder
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
         // create permissions
+
+        // user permissions
+        Permission::create(['name' => Permissions::CreateUser->value]);
+        Permission::create(['name' => Permissions::ViewUser->value]);
+        Permission::create(['name' => Permissions::ViewUsersList->value]);
+        Permission::create(['name' => Permissions::EditUser->value]);
+        Permission::create(['name' => Permissions::DeleteUser->value]);
+        // articles permissions
         Permission::create(['name' => Permissions::CreateArticles->value]);
         Permission::create(['name' => Permissions::EditArticles->value]);
         Permission::create(['name' => Permissions::DeleteArticles->value]);
         Permission::create(['name' => Permissions::PublishArticles->value]);
         Permission::create(['name' => Permissions::UnpublishArticles->value]);
         Permission::create(['name' => Permissions::ViewArticles->value]);
+        // roles permissions
+        Permission::create(['name' => Permissions::ViewRoles->value]);
+        Permission::create(['name' => Permissions::EditRole->value]);
+
         // create roles and assign created permissions
 
         // this can be done as separate statements
@@ -36,7 +48,12 @@ class RolesAndPermissionsSeeder extends Seeder
         $role->givePermissionTo(Permissions::ViewArticles->value);
 
         $role = Role::create(['name' => Roles::Customer->value]);
-        $role->givePermissionTo([Permissions::ViewArticles->value, Permissions::CreateArticles->value]);
+        $role->givePermissionTo([
+            Permissions::ViewArticles->value, 
+            Permissions::CreateArticles->value,
+            Permissions::EditArticles->value,
+            Permissions::DeleteArticles->value,
+        ]);
 
         $role = Role::create(['name' => Roles::Manager->value]);
         $role->givePermissionTo([
@@ -45,6 +62,7 @@ class RolesAndPermissionsSeeder extends Seeder
             Permissions::UnpublishArticles->value,
             Permissions::PublishArticles->value,
             Permissions::CreateArticles->value,
+            Permissions::DeleteArticles->value,
         ]);
 
     }

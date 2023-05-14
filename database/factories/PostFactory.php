@@ -19,7 +19,7 @@ class PostFactory extends Factory
         return [
             'title' => fake()->name(),
             'text' => fake()->text(200),
-            'user_id' => rand(1, 10)
+            'user_id' => rand(1, 5)
         ];
     }
 }

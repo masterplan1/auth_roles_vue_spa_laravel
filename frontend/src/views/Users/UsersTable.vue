@@ -16,7 +16,7 @@
           <td class="border-b border-gray-400 p-2">{{ rolesArrayHandler(user.roles) }}</td>
           <td class="border-b border-gray-400 p-2">
             <div class="flex gap-2">
-              <span
+              <span v-if="can('view', 'user')"
                 class="bg-blue-400 text-white p-1 rounded-lg cursor-pointer hover:scale-105"
               >
                 <router-link
@@ -44,6 +44,7 @@
                 </router-link>
               </span>
               <span
+                v-if="can('edit', 'user')"
                 class="bg-yellow-400 text-white p-1 rounded-lg cursor-pointer hover:scale-105"
               >
               <router-link
@@ -66,6 +67,7 @@
                 </router-link>
               </span>
               <span
+                v-if="can('delete', 'user')"
                 class="bg-red-400 text-white p-1 rounded-lg cursor-pointer hover:scale-105"
                 @click="removeUser(user.id)"
               >
@@ -97,6 +99,8 @@ import { onMounted } from "vue";
 import axiosClient from "../../axios";
 import { useUserStore } from "../../store/user";
 import { storeToRefs } from "pinia";
+import { useAbility } from '@casl/vue';
+const { can } = useAbility();
 
 const store = useUserStore();
 const { users } = storeToRefs(store);

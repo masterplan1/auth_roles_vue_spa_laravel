@@ -23,7 +23,7 @@
             <!-- </ul> -->
           </td>
           <td class="border-b border-gray-400 p-2">
-            <div class="flex gap-2">
+            <div class="flex gap-2" v-if="can('edit', 'role')">
               <span
                 class="bg-yellow-400 text-white p-1 rounded-lg cursor-pointer hover:scale-105"
               >
@@ -57,11 +57,9 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import axiosClient from "../../axios";
-// import { useRoleStore } from "../../store/role";
-// import { storeToRefs } from "pinia";
+import { useAbility } from '@casl/vue';
+const { can } = useAbility();
 
-// const store = useRoleStore();
-// const { roles } = storeToRefs(store);
 const roles = ref([])
 
 onMounted(() => {

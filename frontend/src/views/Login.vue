@@ -60,10 +60,7 @@ function login() {
 function _handleRules(roles1){
   sessionStorage.setItem('ROLES', JSON.stringify(roles1))
 }
-const roles = [{
-          action: "read",
-          subject: "Post",
-        }]
+
 // import {ability} from './ability.js'
 // router.beforeEach(async (to, from, next)=>{
 //   ...

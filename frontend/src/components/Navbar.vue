@@ -14,6 +14,7 @@
 import {useAuthStore} from '../store/auth'
 import { useRouter } from 'vue-router';
 import { onMounted } from 'vue';
+import ability from "../services/ability.js";
 
 const store = useAuthStore();
 const router = useRouter()
@@ -22,6 +23,7 @@ function logout(){
   store.logout()
     .then(() => {
       sessionStorage.removeItem('ROLES')
+      ability.update([]);
       router.push({name: 'login'})
     })
 }

@@ -16,12 +16,11 @@ class CreateUserSeeder extends Seeder
      */
     public function run(): void
     {
-        $user = User::create([
-            'name' => fake()->name(),
-            'email' => fake()->email(),
-            'password' => Hash::make('123qwe123')
-        ]);
+        $users = User::factory()->count(5)->create();
 
-        $user->assignRole(Role::where('name', '!=', 'admin')->get()->random()->name);
+        foreach($users as $user){
+            $user->assignRole(Roles::Guest->value);
+        }
+
     }
 }

@@ -6,6 +6,7 @@ use App\Enums\Authorization\Permissions;
 use App\Http\Controllers\Controller;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -14,6 +15,9 @@ class PostController extends Controller
      */
     public function index()
     {
+        if(!auth()->user()->can(Permissions::ViewArticles->value)){
+            abort(403);
+        }
         return Post::all();
     }
 
@@ -22,11 +26,14 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        if(!auth()->user()->can(Permissions::CreateArticles->value)){
+            abort(403);
+        }
         $validated = $request->validate([
             'title' => 'required',
             'text' => 'required',
         ]);
-        
+        $validated['user_id'] = Auth::user()->id;
         $post = Post::create($validated);
 
         return $post;
@@ -48,6 +55,9 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
+        if(!auth()->user()->can(Permissions::EditArticles->value)){
+            abort(403);
+        }
         $validated = $request->validate([
             'title' => 'required',
             'text' => 'required',
@@ -63,6 +73,9 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        if(!auth()->user()->can(Permissions::DeleteArticles->value)){
+            abort(403);
+        }
         $post->delete();
         return response('', 204);
     }

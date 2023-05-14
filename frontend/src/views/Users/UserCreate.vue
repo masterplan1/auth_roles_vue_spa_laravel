@@ -1,14 +1,18 @@
 <template>
   <div>
-    User #{{ route.params.id }}
-    <form @submit.prevent="editUser">
+    Create New User
+    <form @submit.prevent="createUser">
       <div class="flex gap-4 mb-4 items-center">
-        <label for="">Title</label>
-        <input type="text" class="p-2 text-lg" v-model="formData.name" />
+        <label for="">Username</label>
+        <input type="text" class="p-2 text-lg rounded" v-model="formData.name" />
       </div>
       <div class="flex gap-4 mb-4 items-center">
-        <label for="">Text</label>
-        <input type="text" class="p-2 text-lg" v-model="formData.email" />
+        <label for="">Email</label>
+        <input type="text" class="p-2 text-lg rounded" v-model="formData.email" />
+      </div>
+      <div class="flex gap-4 mb-4 items-center">
+        <label for="">Password</label>
+        <input type="password" class="p-2 text-lg rounded" v-model="formData.password" />
       </div>
       <div class="mb-4 flex items-center gap-8">
         <h3>Roles</h3>
@@ -24,7 +28,7 @@
         </div>
       </div>
       <button class="px-3 py-1 rounded text-white bg-emerald-400 font-semibold">
-        Update
+        Create
       </button>
     </form>
   </div>
@@ -41,27 +45,21 @@ let roles = ref([]);
 const formData = ref({
   name: "",
   email: "",
+  password: "",
   roles: [],
 });
 
-function editUser() {
+function createUser() {
   axiosClient
-    .put("/users/" + route.params.id, formData.value)
+    .post("/users/create", formData.value)
     .then(({ data }) => {
       router.push({ name: "app.user" });
     });
 }
 
-function rolesArrayHandler(arr) {
-  return arr?.join(", ");
-}
-
 onMounted(() => {
-  axiosClient.get("/users/" + route.params.id).then(({ data }) => {
-    formData.value.name = data.name;
-    formData.value.email = data.email;
-    formData.value.roles = data.roles;
-    roles.value = data.allRoles;
+  axiosClient.get("/roles").then(({ data }) => {
+    roles.value = data.data;
   });
 });
 </script>

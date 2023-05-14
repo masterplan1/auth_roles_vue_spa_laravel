@@ -9,6 +9,7 @@ use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -23,6 +24,32 @@ class UserController extends Controller
 
     public function show(User $user)
     {
+        return new UserResource($user);
+    }
+
+    public function create(Request $request)
+    {
+        $validated = $request->validate([
+            'email' => 'required|email|unique:users,email',
+            'name' => 'required|string',
+            'password' => 'required',
+            'roles' => 'array|exists:roles,name'
+        ]);
+        $validated['password'] = Hash::make($validated['password']);
+        $roles = $validated['roles'];
+        unset($validated['rolse']);
+
+        $user = User::create($validated);
+        
+
+        if(!empty($roles)){
+            if(($key = array_search('superuser', $roles)) !== false) unset($roles[$key]);
+            $user->syncRoles($roles);
+        }  
+        if(empty($roles)){
+            $user->assignRole(Roles::Guest->value);
+        }
+
         return new UserResource($user);
     }
 

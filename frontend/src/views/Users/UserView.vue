@@ -1,7 +1,14 @@
 <template>
   <div>
-    User #{{ route.params.id }}
-    {{ user }}
+    <h2 class="text-xl font-semibold mb-6">User #{{ route.params.id }}</h2>
+    <p class="text-lg">
+      <span class="mr-4 font-semibold">Name: </span>
+      <span>{{ user.name }}</span>
+    </p>
+    <p class="text-lg">
+      <span class="mr-4 font-semibold">Email: </span>
+      <span>{{ user.email }}</span>
+    </p>
   </div>
 </template>
 
