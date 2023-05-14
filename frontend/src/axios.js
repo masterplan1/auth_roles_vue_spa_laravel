@@ -13,15 +13,4 @@ axiosClient.interceptors.request.use(config => {
   return config;
 })
 
-// axiosClient.interceptors.response.use(response => {
-//   return response;
-// }, error => {
-//   if(error.response.status === 401){
-//     store.commit('setToken', null)
-//     router.push({name: 'login'})
-//   }
-//   // console.log(error.response.data)
-//   throw error
-// })
-
 export default axiosClient;

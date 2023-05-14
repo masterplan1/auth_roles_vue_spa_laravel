@@ -29,7 +29,9 @@ class AuthController extends Controller
         return response()->json([
             'user' => $user,
             'token' => $token,
-            'scopes' => $this->prepareScopes($user->getAllPermissions())
+            'scopes' => $this->isSuperuser($user) 
+                ? [['action' => 'manage', 'subject' => 'all']] 
+                : $this->prepareScopes($user->getAllPermissions())
         ]);
     }
 
@@ -50,5 +52,10 @@ class AuthController extends Controller
                 return ['action' => $nameArr[0], 'subject' => $nameArr[1]];
             }
         });
+    }
+
+    private function isSuperuser($user){
+        $roles = $user->getRoleNames()->toArray();
+        return in_array('superuser', $roles);
     }
 }

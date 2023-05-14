@@ -1,14 +1,11 @@
 <template>
   <div class="p-10">
-    <p v-if="can('create', 'articles')">
-      Dashboard
+    <h1 class="text-xl font-semibold mb-4">
+      Wellcome to simple admin page with roles/permissions.
+    </h1>
+    <p class="text-lg">
+      There is an example of Laravel back + vue spa authorization with roles using spatie laravel-permission and casl.
     </p>
-    <p>
-      Dashboard1
-    </p>
-    <router-link to="/post"><p
-        class="mt-8 text-blue-400 text-xl"
-      >Posts</p></router-link>
   </div>
 </template>
 

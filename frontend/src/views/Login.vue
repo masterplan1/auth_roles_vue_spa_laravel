@@ -50,11 +50,6 @@ const formData = ref({
 function login() {
   authStore.login(formData.value).then((res) => {
     if (res) {
-      console.log(res)
-      // const roles = [{
-      //     action: "read",
-      //     subject: "Post",
-      //   }]
       _handleRules(res.scopes)
       ability.update(res.scopes); //
       router.push({ name: "app.dashboard" });

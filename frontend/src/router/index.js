@@ -6,6 +6,8 @@ import PostEdit from '../views/Posts/PostEdit.vue'
 import User from '../views/Users/User.vue'
 import UserView from '../views/Users/UserView.vue'
 import UserEdit from '../views/Users/UserEdit.vue'
+import Role from '../views/Roles/Role.vue'
+import RoleEdit from '../views/Roles/RoleEdit.vue'
 import Login from '../views/Login.vue'
 import AppLayout from '../components/AppLayout.vue'
 import {useAuthStore} from '../store/auth'
@@ -59,6 +61,16 @@ const router = createRouter({
           path: '/user/edit/:id',
           name: 'app.user-edit',
           component: UserEdit
+        },
+        {
+          path: '/role',
+          name: 'app.role',
+          component: Role
+        },
+        {
+          path: '/role/edit/:id',
+          name: 'app.role-edit',
+          component: RoleEdit
         },
       ]
     },

@@ -18,7 +18,6 @@ export const useAuthStore = defineStore('auth', () => {
       return data
     })
     .catch(({response}) => {
-      console.log(response.data)
       return false
     })
   }

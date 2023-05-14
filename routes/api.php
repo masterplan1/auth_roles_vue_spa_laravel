@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\RoleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -29,7 +30,11 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::put('/users/{user}', [UserController::class, 'update'])->middleware('can:edit articles');
     Route::delete('/users/{user}', [UserController::class, 'remove']);
     Route::get('/user', [UserController::class, 'getUser']);
-
+    
+    Route::get('/roles', [RoleController::class, 'getRoles']);
+    Route::get('/role/{role}', [RoleController::class, 'getRole']);
+    Route::put('/role/{role}', [RoleController::class, 'update']);
+    
     Route::post('/logout', [AuthController::class, 'logout']);
 });
 
