@@ -30,6 +30,6 @@ It is simple example of using together such tools as laravel sanctum, spatie-lar
 Login as 'superuser' and test your own roles and permissions combinations.
 
 ```
-    superuser@example.com
-    123qwe123
-    ```
+superuser@example.com
+123qwe123
+```
